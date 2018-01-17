@@ -6,7 +6,7 @@
                         STUFF((SELECT   ' ' + CHAR(13)+', MOVE ''' + name + ''''
                                         + CASE Type
                                             WHEN 0 THEN ' TO ''D:\SQLData\'
-                                            ELSE ' TO ''E:\\SQLTLogs\'
+                                            ELSE ' TO ''E:\SQLTLogs\'
                                           END
                                         + REVERSE(LEFT(REVERSE(physical_name),
                                                        CHARINDEX('\',
