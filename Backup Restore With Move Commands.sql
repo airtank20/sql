@@ -1,4 +1,9 @@
 
+DECLARE @date CHAR(8)
+SET @date = (SELECT CONVERT(char(8), GETDATE(), 112))
+
+DECLARE @path VARCHAR(125)
+SET @path = '\\UNCPath\Folder\'
 
 ;WITH MoveCmdCTE ( DatabaseName, MoveCmd )
           AS ( SELECT DISTINCT
@@ -19,8 +24,9 @@
                FROM     sys.master_files sm2
   )
 SELECT
-'BACKUP DATABASE ' + name + ' TO DISK = ''\\UNCPath\Folder\Folder2\' + name + '_COPY_ONLY_ServerName_20140826.bak'' WITH COMPRESSION, COPY_ONLY, STATS=5',
-'RESTORE DATABASE '+ name + ' FROM DISK = ''\\UNCPath\Folder\Folder2\'+ name + '_COPY_ONLY_ServerName_20140826.bak'' WITH RECOVERY, REPLACE, STATS=5 ' + movecmdCTE.MoveCmd
+	'BACKUP DATABASE ' + name + ' TO DISK = ''' + @path + '' + name + '_COPY_ONLY_' + @date + '.bak'' WITH COMPRESSION, COPY_ONLY, STATS=5',
+	'RESTORE DATABASE '+ name + ' FROM DISK = ''' + @path + '' + name + '_COPY_ONLY_' + @date + '.bak'' WITH RECOVERY, REPLACE, STATS=5 ' + movecmdCTE.MoveCmd
 FROM sys.databases d
-INNER JOIN MoveCMDCTE ON d.name = movecmdcte.databasename
-WHERE d.name LIKE '%DatabaseName%'  -- or exclude it all together for all of them.
+	INNER JOIN MoveCMDCTE ON d.name = movecmdcte.databasename
+WHERE d.name LIKE '%DatabaseName%'
+GO
