@@ -22,4 +22,4 @@ SELECT OBJECT_NAME(i.object_id) AS 'TableName',COUNT(COL_NAME(ic.object_id,ic.co
 		AND o.type_desc = 'USER_TABLE'
 GROUP BY OBJECT_NAME(i.object_id)
 HAVING COUNT('Primay_Key_Column_Count') > 1
-ORDER BY 'TableName'
+ORDER BY 'TableName' ASC
