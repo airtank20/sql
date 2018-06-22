@@ -19,7 +19,7 @@ END
 IF NOT EXISTS( SELECT 1 FROM msdb.dbo.sysnotifications sy
 						INNER JOIN msdb.dbo.sysalerts sa ON sy.alert_id = sa.id
 						INNER JOIN msdb.dbo.sysoperators so ON sy.operator_id = so.id
-					WHERE so.name = 'SQLAdmins' AND
+					WHERE so.name = @operator AND
 						sa.name = '017- Insufficient Resources')
 	BEGIN
 		EXEC msdb.dbo.sp_add_notification @alert_name=N'017- Insufficient Resources', @operator_name=@operator, @notification_method = 1;
@@ -41,7 +41,7 @@ END
 IF NOT EXISTS( SELECT 1 FROM msdb.dbo.sysnotifications sy
 						INNER JOIN msdb.dbo.sysalerts sa ON sy.alert_id = sa.id
 						INNER JOIN msdb.dbo.sysoperators so ON sy.operator_id = so.id
-					WHERE so.name = 'SQLAdmins' AND
+					WHERE so.name = @operator AND
 						sa.name = '018- Nonfatal Internal Error')
 	BEGIN
 		EXEC msdb.dbo.sp_add_notification @alert_name=N'018- Nonfatal Internal Error', @operator_name=@operator, @notification_method = 1;
@@ -63,7 +63,7 @@ BEGIN
 IF NOT EXISTS( SELECT 1 FROM msdb.dbo.sysnotifications sy
 						INNER JOIN msdb.dbo.sysalerts sa ON sy.alert_id = sa.id
 						INNER JOIN msdb.dbo.sysoperators so ON sy.operator_id = so.id
-					WHERE so.name = 'SQLAdmins' AND
+					WHERE so.name = @operator AND
 						sa.name = '019- Fatal Error in Resource')
 	BEGIN
 		EXEC msdb.dbo.sp_add_notification @alert_name=N'019- Fatal Error in Resource', @operator_name=@operator, @notification_method = 1;
@@ -83,7 +83,7 @@ END
 IF NOT EXISTS( SELECT 1 FROM msdb.dbo.sysnotifications sy
 						INNER JOIN msdb.dbo.sysalerts sa ON sy.alert_id = sa.id
 						INNER JOIN msdb.dbo.sysoperators so ON sy.operator_id = so.id
-					WHERE so.name = 'SQLAdmins' AND
+					WHERE so.name = @operator AND
 						sa.name = '020- Fatal Error in Current Process')
 	BEGIN
 		EXEC msdb.dbo.sp_add_notification @alert_name=N'020- Fatal Error in Current Process', @operator_name=@operator, @notification_method = 1;
@@ -104,7 +104,7 @@ BEGIN
 IF NOT EXISTS( SELECT 1 FROM msdb.dbo.sysnotifications sy
 						INNER JOIN msdb.dbo.sysalerts sa ON sy.alert_id = sa.id
 						INNER JOIN msdb.dbo.sysoperators so ON sy.operator_id = so.id
-					WHERE so.name = 'SQLAdmins' AND
+					WHERE so.name = @operator AND
 						sa.name = '021- Fatal Error in Database Processes')
 	BEGIN
 		EXEC msdb.dbo.sp_add_notification @alert_name=N'021- Fatal Error in Database Processes', @operator_name= @operator, @notification_method = 1;
@@ -124,7 +124,7 @@ END
 IF NOT EXISTS( SELECT 1 FROM msdb.dbo.sysnotifications sy
 						INNER JOIN msdb.dbo.sysalerts sa ON sy.alert_id = sa.id
 						INNER JOIN msdb.dbo.sysoperators so ON sy.operator_id = so.id
-					WHERE so.name = 'SQLAdmins' AND
+					WHERE so.name = @operator AND
 						sa.name = '022- Fatal Error: Table Integrity Suspect')
 	BEGIN
 		EXEC msdb.dbo.sp_add_notification @alert_name=N'022- Fatal Error: Table Integrity Suspect', @operator_name= @operator, @notification_method = 1;
@@ -144,7 +144,7 @@ END
 IF NOT EXISTS( SELECT 1 FROM msdb.dbo.sysnotifications sy
 						INNER JOIN msdb.dbo.sysalerts sa ON sy.alert_id = sa.id
 						INNER JOIN msdb.dbo.sysoperators so ON sy.operator_id = so.id
-					WHERE so.name = 'SQLAdmins' AND
+					WHERE so.name = @operator AND
 						sa.name = '023- Fatal Error: Database Integrity Suspect')
 	BEGIN
 		EXEC msdb.dbo.sp_add_notification @alert_name=N'023- Fatal Error: Database Integrity Suspect', @operator_name= @operator, @notification_method = 1;
@@ -164,7 +164,7 @@ END
 IF NOT EXISTS( SELECT 1 FROM msdb.dbo.sysnotifications sy
 						INNER JOIN msdb.dbo.sysalerts sa ON sy.alert_id = sa.id
 						INNER JOIN msdb.dbo.sysoperators so ON sy.operator_id = so.id
-					WHERE so.name = 'SQLAdmins' AND
+					WHERE so.name = @operator AND
 						sa.name = '024- Fatal Error: Hardware')
 	BEGIN
 		EXEC msdb.dbo.sp_add_notification @alert_name=N'024- Fatal Error: Hardware', @operator_name= @operator, @notification_method = 1;
@@ -184,16 +184,16 @@ BEGIN
 IF NOT EXISTS( SELECT 1 FROM msdb.dbo.sysnotifications sy
 						INNER JOIN msdb.dbo.sysalerts sa ON sy.alert_id = sa.id
 						INNER JOIN msdb.dbo.sysoperators so ON sy.operator_id = so.id
-					WHERE so.name = 'SQLAdmins' AND
+					WHERE so.name = @operator AND
 						sa.name = '025- Fatal Error')
 	BEGIN
 		EXEC msdb.dbo.sp_add_notification @alert_name=N'025- Fatal Error', @operator_name=@operator, @notification_method = 1;
 	END
  
 /****** Object:  Alert [2570 - Data Purity Error]    Script Date: 12/22/2016 9:02:01 AM ******/
-IF NOT EXISTS (SELECT 1 FROM msdb.dbo.sysalerts WHERE name='2570 - Data Purity Error')
+IF NOT EXISTS (SELECT 1 FROM msdb.dbo.sysalerts WHERE name='2570- Data Purity Error')
 BEGIN
-	EXEC msdb.dbo.sp_add_alert @name = N'2570 - Data Purity Error',
+	EXEC msdb.dbo.sp_add_alert @name = N'2570- Data Purity Error',
                            @message_id = 2570,
                            @severity = 0,
                            @enabled = 1,
@@ -204,10 +204,10 @@ BEGIN
 IF NOT EXISTS( SELECT 1 FROM msdb.dbo.sysnotifications sy
 						INNER JOIN msdb.dbo.sysalerts sa ON sy.alert_id = sa.id
 						INNER JOIN msdb.dbo.sysoperators so ON sy.operator_id = so.id
-					WHERE so.name = 'SQLAdmins' AND
-						sa.name = '2570 - Data Purity Error')
+					WHERE so.name = @operator AND
+						sa.name = '2570- Data Purity Error')
 	BEGIN
-		EXEC msdb.dbo.sp_add_notification @alert_name=N'2570 - Data Purity Error', @operator_name=@operator, @notification_method = 1;
+		EXEC msdb.dbo.sp_add_notification @alert_name=N'2570- Data Purity Error', @operator_name=@operator, @notification_method = 1;
 	END
  
 /****** Object:  Alert [823- Read/Write Failure]    Script Date: 12/22/2016 9:02:06 AM ******/
@@ -224,7 +224,7 @@ END
 IF NOT EXISTS( SELECT 1 FROM msdb.dbo.sysnotifications sy
 						INNER JOIN msdb.dbo.sysalerts sa ON sy.alert_id = sa.id
 						INNER JOIN msdb.dbo.sysoperators so ON sy.operator_id = so.id
-					WHERE so.name = 'SQLAdmins' AND
+					WHERE so.name = @operator AND
 						sa.name = '823- Read/Write Failure')
 	BEGIN
 		EXEC msdb.dbo.sp_add_notification @alert_name=N'823- Read/Write Failure', @operator_name=@operator, @notification_method = 1;
@@ -245,7 +245,7 @@ END
 IF NOT EXISTS( SELECT 1 FROM msdb.dbo.sysnotifications sy
 						INNER JOIN msdb.dbo.sysalerts sa ON sy.alert_id = sa.id
 						INNER JOIN msdb.dbo.sysoperators so ON sy.operator_id = so.id
-					WHERE so.name = 'SQLAdmins' AND
+					WHERE so.name = @operator AND
 						sa.name = '824- Data Retriveal SAN Slowdown Page Error')
 	BEGIN
 		EXEC msdb.dbo.sp_add_notification @alert_name=N'824- Data Retriveal SAN Slowdown Page Error', @operator_name=@operator, @notification_method = 1;
@@ -265,7 +265,7 @@ END
 IF NOT EXISTS( SELECT 1 FROM msdb.dbo.sysnotifications sy
 						INNER JOIN msdb.dbo.sysalerts sa ON sy.alert_id = sa.id
 						INNER JOIN msdb.dbo.sysoperators so ON sy.operator_id = so.id
-					WHERE so.name = 'SQLAdmins' AND
+					WHERE so.name = @operator AND
 						sa.name = '825- I/O subsystem is going wrong Read-Retry Required')
 	BEGIN
 		EXEC msdb.dbo.sp_add_notification @alert_name=N'825- I/O subsystem is going wrong Read-Retry Required', @operator_name=@operator, @notification_method = 1;
@@ -285,7 +285,7 @@ END
 IF NOT EXISTS( SELECT 1 FROM msdb.dbo.sysnotifications sy
 						INNER JOIN msdb.dbo.sysalerts sa ON sy.alert_id = sa.id
 						INNER JOIN msdb.dbo.sysoperators so ON sy.operator_id = so.id
-					WHERE so.name = 'SQLAdmins' AND
+					WHERE so.name = @operator AND
 						sa.name = '833- In Memory Check Sum Failure')
 	BEGIN
 		EXEC msdb.dbo.sp_add_notification @alert_name=N'833- In Memory Check Sum Failure', @operator_name=@operator, @notification_method = 1;
